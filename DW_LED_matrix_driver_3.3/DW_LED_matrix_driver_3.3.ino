@@ -2,7 +2,7 @@
 // - displays flowing chevrons
 // - Salvaged LED panel (Model MX-1275)+ Arduino Nano
 // Darin White - dw@makebright.com
-// 2016-06-08
+// 2016-06-08 
 //
 
 const int dataInPin      = 12;
@@ -449,11 +449,7 @@ void setup() {
   delay(2000);  // delay for the matrix board to power up
   toggleMarkerLED(); delay(100); 
   toggleMarkerLED(); delay(100);
-  toggleMarkerLED(); delay(100); 
-  toggleMarkerLED(); delay(100);
-  toggleMarkerLED(); delay(100); 
-  toggleMarkerLED(); delay(100);
-  
+
   clearThePipe(8,0x00); 
   
   shiftOut(dataInPin, clkRowPin, LSBFIRST, (byte) 0xFF); // turn all the rows off
@@ -500,16 +496,6 @@ void loadCols(int thisRow)
   digitalWrite(strobeOEColPin, LOW); // now sink current in cols and rely on row scanner for POV and current limiting
 }
 
-void toggleMarkerLED() {
-  if (markerLEDStatus) {
-    markerLEDStatus = false;
-    digitalWrite(markerLEDPin, HIGH);
-  } else {
-    markerLEDStatus = true;
-    digitalWrite(markerLEDPin, LOW);
-  }
-}
-
 void clearThePipe(int numBytes, byte dataVal)
 {
   digitalWrite(strobeOEColPin, HIGH); // turn off columns while loading because strobe and OE are tied together
@@ -520,4 +506,14 @@ void clearThePipe(int numBytes, byte dataVal)
     shiftOut(dataInPin, clkColPin2, LSBFIRST, dataVal); 
   }
   digitalWrite(strobeOEColPin, LOW);
+}
+
+void toggleMarkerLED() {
+  if (markerLEDStatus) {
+    markerLEDStatus = false;
+    digitalWrite(markerLEDPin, HIGH);
+  } else {
+    markerLEDStatus = true;
+    digitalWrite(markerLEDPin, LOW);
+  }
 }
